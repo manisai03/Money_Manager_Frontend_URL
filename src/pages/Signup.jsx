@@ -65,13 +65,33 @@ const Signup = () => {
                 toast.success("Profile created successfully.");
                 navigate("/login");
             }
-        } catch(err) {
-            console.error('Something went wrong', err);
-            setError(err.message);
-        } finally {
-            setIsLoading(false);
+        }catch (err) {
+    console.error("Signup error:", err);
+
+    // Default message
+    let message = "Something went wrong. Please try again.";
+
+    // Check if backend sent a response
+    if (err.response) {
+        if (err.response.status === 409) {
+            message = "This email is already registered. Please login.";
+        } else if (err.response.data?.error) {
+            message = err.response.data.error; // use backend error message if available
+        } else {
+            message = `Error ${err.response.status}: ${err.response.statusText}`;
         }
+    } else if (err.request) {
+        message = "No response from server. Please check your connection.";
+    } else {
+        message = err.message;
     }
+
+    // Show popup + inline error
+    toast.error(message);
+    setError(message);
+}
+}
+
 
     return (
         <div className="h-screen w-full flex flex-col">

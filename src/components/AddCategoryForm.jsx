@@ -12,12 +12,17 @@ const AddCategoryForm = ({onAddCategory, initialCategoryData, isEditing}) => {
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        if (isEditing && initialCategoryData) {
-            setCategory(initialCategoryData);
-        } else {
-            setCategory({name: "", type: "income", icon: ""});
-        }
-    }, [isEditing, initialCategoryData]);
+    if (isEditing && initialCategoryData) {
+        setCategory({
+            id: initialCategoryData.id,   // ✅ Preserve ID
+            name: initialCategoryData.name,
+            type: initialCategoryData.type,
+            icon: initialCategoryData.icon
+        });
+    } else {
+        setCategory({id: null, name: "", type: "income", icon: ""});
+    }
+}, [isEditing, initialCategoryData]);
 
     const categoryTypeOptions = [
         {value: "income", label: "Income"},

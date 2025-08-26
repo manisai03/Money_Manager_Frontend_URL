@@ -73,7 +73,16 @@ const Menubar = ({ activeMenu }) => {
                     rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-purple-800
                     focus:ring-offset-2"
                 >
-                    <img src={user?.profileImageUrl}  className="w-10 h-10 rounded-full"/>
+                    {user?.profileImageUrl ? (
+                    <img
+                        src={user.profileImageUrl}
+                        alt="User Avatar"
+                        className="w-10 h-10 rounded-full"
+                    />
+                    ) : (
+                    <User className="w-6 h-6 text-gray-500" />
+                    )}
+
                 </button>
 
                 {/* Dropdown Menu */}
@@ -83,15 +92,12 @@ const Menubar = ({ activeMenu }) => {
                         <div className="px-4 py-3 border-b border-gray-100">
                             <div className="flex items-center gap-3">
                                 <div className="flex items-center justify-center w-8 h-8 bg-gray-100 rounded-full">
-                                    {user? (
-                                        <>
-                                            <img src={user.profileImageUrl} />
-                                        </>
-                                    ): (
-                                        <>
-                                            <User className="w-4 h-4 text-purple-600"/>
-                                        </>
+                                    {user?.profileImageUrl ? (
+                                    <img src={user.profileImageUrl} className="w-8 h-8 rounded-full" />
+                                    ) : (
+                                    <User className="w-4 h-4 text-purple-600"/>
                                     )}
+
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-sm font-medium text-gray-900 truncate">

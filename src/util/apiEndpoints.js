@@ -1,4 +1,6 @@
-export const BASE_URL = "https://money-manager-backend-9.onrender.com";
+// export const BASE_URL = "http://localhost:8081";
+
+export const BASE_URL = "https://money-manager-backend-10.onrender.com";
 const CLOUDINARY_CLOUD_NAME = "dbch3vzap";
 
 export const API_ENDPOINTS = {

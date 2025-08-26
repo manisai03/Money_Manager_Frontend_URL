@@ -38,7 +38,7 @@ const Category = () => {
 
     useEffect(() => {
     const fetchData = async () => {
-        await fetchCategoryDetails();
+        fetchCategoryDetails();
     };
 
     fetchData();
@@ -81,39 +81,39 @@ const Category = () => {
     }
 
     const handleUpdateCategory = async (updatedCategory) => {
-    const {id, name, type, icon} = updatedCategory;
+  const { id, name, type, icon } = updatedCategory;
 
-    if (!name.trim()) {
-        toast.error("Category Name is required");
-        return;
+  if (!name.trim()) {
+    toast.error("Category Name is required");
+    return;
+  }
+
+  if (!id) {
+    toast.error("Category ID is missing for update");
+    return;
+  }
+
+  // Build only non-empty payload
+  const payload = {
+    name: name.trim(),
+  };
+  if (type && type.trim()) payload.type = type.trim();
+  if (icon && icon.trim()) payload.icon = icon.trim();
+
+  try {
+    const response = await axiosConfig.put(API_ENDPOINTS.UPDATE_CATEGORY(id), payload);
+
+    if (response.status === 200) {
+      await fetchCategoryDetails();
+      setOpenEditCategoryModal(false);
+      setSelectedCategory(null);
+      toast.success("Category updated successfully");
     }
-
-    if (!id) {
-        toast.error("Category ID is missing for update");
-        return;
-    }
-
-    try {
-        const response = await axiosConfig.put(API_ENDPOINTS.UPDATE_CATEGORY(id), {name, type, icon});
-
-        if (response.status === 200) {
-            // ✅ update local state correctly
-            setCategoryData((prev) =>
-                prev.map((cat) =>
-                    cat.id === id ? { ...cat, name, type, icon } : cat
-                )
-            );
-
-            setOpenEditCategoryModal(false);
-            setSelectedCategory(null);
-            toast.success("Category updated successfully");
-        }
-    } catch (error) {
-        console.error("Error updating category:", error.response?.data?.message || error.message);
-        toast.error(error.response?.data?.message || "Failed to update category.");
-    }
+  } catch (error) {
+    console.error("Error updating category:", error.response?.data?.message || error.message);
+    toast.error(error.response?.data?.message || "Failed to update category.");
+  }
 };
-
 
 
     return (
