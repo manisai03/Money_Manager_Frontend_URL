@@ -24,10 +24,13 @@ const TransactionInfoCard = ({icon, title, date, amount, type, hideDeleteBtn, on
                     {!hideDeleteBtn && (
                         <button
                             onClick={onDelete}
-                            className="text-gray-400 hover:text-red-800 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
-                            <Trash2 size={18} />
+                            className="text-gray-400 hover:text-red-800 transition-opacity cursor-pointer
+                                    opacity-100 md:opacity-0 group-hover:opacity-100"
+                        >
+                            <Trash2 size={20} />
                         </button>
                     )}
+
 
                     <div className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}>
                         <h6 className="text-xs font-medium">
