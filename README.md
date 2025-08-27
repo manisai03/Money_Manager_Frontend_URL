@@ -22,7 +22,7 @@ This application is built with React and styled using modern UI libraries, offer
 
 🛠️ Tech Stack:
 
-=. Frontend Framework: React.js (Vite / Create React App)
+=> Frontend Framework: React.js (Vite / Create React App)
 
 => Styling: Tailwind CSS / CSS Modules
 
